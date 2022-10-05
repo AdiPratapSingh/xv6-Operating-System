@@ -15,6 +15,3 @@ mkfs
 kernel/kernel
 user/usys.S
 .gdbinit
-user/pipeline.c
-user/forksleep.c
-user/primefactors.c
