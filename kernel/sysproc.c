@@ -6,6 +6,11 @@
 #include "memlayout.h"
 #include "spinlock.h"
 #include "proc.h"
+#include "sleeplock.h"
+#include "condvar.h"
+#include "barrier.h"
+#include "semaphore.h"
+
 
 uint64
 sys_exit(void)
@@ -94,4 +99,171 @@ sys_uptime(void)
   xticks = ticks;
   release(&tickslock);
   return xticks;
+}
+
+uint64
+sys_getppid(void)
+{
+  if (myproc()->parent) return myproc()->parent->pid;
+  else {
+     printf("No parent found.\n");
+     return 0;
+  }
+}
+
+uint64
+sys_yield(void)
+{
+  yield();
+  return 0;
+}
+
+uint64
+sys_getpa(void)
+{
+  uint64 x;
+  if (argaddr(0, &x) < 0) return -1;
+  return walkaddr(myproc()->pagetable, x) + (x & (PGSIZE - 1));
+}
+
+uint64
+sys_forkf(void)
+{
+  uint64 x;
+  if (argaddr(0, &x) < 0) return -1;
+  return forkf(x);
+}
+
+uint64
+sys_waitpid(void)
+{
+  uint64 p;
+  int x;
+
+  if(argint(0, &x) < 0)
+    return -1;
+  if(argaddr(1, &p) < 0)
+    return -1;
+
+  if (x == -1) return wait(p);
+  if ((x == 0) || (x < -1)) return -1;
+  return waitpid(x, p);
+}
+
+uint64
+sys_ps(void)
+{
+   return ps();
+}
+
+uint64
+sys_pinfo(void)
+{
+  uint64 p;
+  int x;
+
+  if(argint(0, &x) < 0)
+    return -1;
+  if(argaddr(1, &p) < 0)
+    return -1;
+
+  if ((x == 0) || (x < -1) || (p == 0)) return -1;
+  return pinfo(x, p);
+}
+
+uint64
+sys_forkp(void)
+{
+  int x;
+  if(argint(0, &x) < 0) return -1;
+  return forkp(x);
+}
+
+uint64
+sys_schedpolicy(void)
+{
+  int x;
+  if(argint(0, &x) < 0) return -1;
+  return schedpolicy(x);
+}
+
+uint64
+sys_barrier_alloc(void)
+{
+  return barrier_alloc();
+}
+
+uint64
+sys_barrier(void)
+{
+  int round, barrier_id, num_processes;
+
+  if(argint(0, &round) < 0)
+    return -1;
+  if(argint(1, &barrier_id) < 0)
+    return -1;
+  if(argint(2, &num_processes) < 0)
+    return -1;
+
+  barrier(round, barrier_id, num_processes);
+  return 0;
+}
+
+uint64
+sys_barrier_free(void)
+{
+  int barrier_id;
+  if(argint(0, &barrier_id) < 0)
+    return -1;
+
+  barrier_free(barrier_id);
+  return 0;
+}
+
+uint64
+sys_buffer_cond_init(void)
+{
+  buffer_cond_init();
+  return 0;
+}
+
+uint64
+sys_cond_produce(void)
+{
+  int value;
+  if(argint(0, &value) < 0)
+    return -1;
+
+  cond_produce(value);
+  return 0;
+}
+
+uint64
+sys_cond_consume(void)
+{
+  return cond_consume();
+}
+
+uint64
+sys_buffer_sem_init(void)
+{
+  buffer_sem_init();
+  return 0;
+}
+
+uint64
+sys_sem_produce(void)
+{
+  int item;
+  if (argint(0, &item) < 0) {
+    return -1;
+  }
+  sem_produce(item);
+  return 0;
+}
+
+uint64
+sys_sem_consume(void)
+{
+  return sem_consume();
 }

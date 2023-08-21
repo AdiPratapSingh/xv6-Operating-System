@@ -105,6 +105,27 @@ extern uint64 sys_wait(void);
 extern uint64 sys_write(void);
 extern uint64 sys_uptime(void);
 
+extern uint64 sys_getppid(void);
+extern uint64 sys_yield(void);
+extern uint64 sys_getpa(void);
+extern uint64 sys_forkf(void);
+extern uint64 sys_waitpid(void);
+extern uint64 sys_ps(void);
+extern uint64 sys_pinfo(void);
+extern uint64 sys_forkp(void);
+extern uint64 sys_schedpolicy(void);
+
+extern uint64 sys_barrier_alloc(void);
+extern uint64 sys_barrier(void);
+extern uint64 sys_barrier_free(void);
+extern uint64 sys_buffer_cond_init(void);
+extern uint64 sys_cond_produce(void);
+extern uint64 sys_cond_consume(void);
+extern uint64 sys_buffer_sem_init(void);
+extern uint64 sys_sem_produce(void);
+extern uint64 sys_sem_consume(void);
+
+
 static uint64 (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
 [SYS_exit]    sys_exit,
@@ -127,6 +148,26 @@ static uint64 (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+
+[SYS_getppid] sys_getppid,
+[SYS_yield]   sys_yield,
+[SYS_getpa]   sys_getpa,
+[SYS_forkf]   sys_forkf,
+[SYS_waitpid] sys_waitpid,
+[SYS_ps]      sys_ps,
+[SYS_pinfo]   sys_pinfo,
+[SYS_forkp]   sys_forkp,
+[SYS_schedpolicy] sys_schedpolicy,
+
+[SYS_barrier_alloc] sys_barrier_alloc,
+[SYS_barrier] sys_barrier,
+[SYS_barrier_free] sys_barrier_free,
+[SYS_buffer_cond_init] sys_buffer_cond_init,
+[SYS_cond_produce] sys_cond_produce,
+[SYS_cond_consume] sys_cond_consume,
+[SYS_buffer_sem_init] sys_buffer_sem_init,
+[SYS_sem_produce] sys_sem_produce,
+[SYS_sem_consume] sys_sem_consume,
 };
 
 void

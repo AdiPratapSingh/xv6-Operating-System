@@ -9,5 +9,14 @@
 #define MAXOPBLOCKS  10  // max # of blocks any FS op writes
 #define LOGSIZE      (MAXOPBLOCKS*3)  // max data blocks in on-disk log
 #define NBUF         (MAXOPBLOCKS*3)  // size of disk block cache
-#define FSSIZE       1000  // size of file system in blocks
+#define FSSIZE       2000  // size of file system in blocks
 #define MAXPATH      128   // maximum file path name
+//#define TIMER_INTERVAL 1000000
+#define TIMER_INTERVAL 1000000
+#define SCHED_NPREEMPT_FCFS 0
+#define SCHED_NPREEMPT_SJF 1
+#define SCHED_PREEMPT_RR 2
+#define SCHED_PREEMPT_UNIX 3
+#define SCHED_PARAM_SJF_A_NUMER 1
+#define SCHED_PARAM_SJF_A_DENOM 2
+#define SCHED_PARAM_CPU_USAGE 200

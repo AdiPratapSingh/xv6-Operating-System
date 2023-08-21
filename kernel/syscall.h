@@ -20,3 +20,23 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
+
+#define SYS_getppid 22
+#define SYS_yield   23
+#define SYS_getpa   24
+#define SYS_forkf   25
+#define SYS_waitpid 26
+#define SYS_ps      27
+#define SYS_pinfo   28
+#define SYS_forkp   29
+#define SYS_schedpolicy 30
+
+#define SYS_barrier_alloc 31
+#define SYS_barrier 32
+#define SYS_barrier_free 33
+#define SYS_buffer_cond_init 34
+#define SYS_cond_produce 35
+#define SYS_cond_consume 36
+#define SYS_buffer_sem_init 37
+#define SYS_sem_produce 38
+#define SYS_sem_consume 39
