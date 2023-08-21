@@ -1,13 +1,26 @@
 #include "kernel/types.h"
 #include "user/user.h"
 
+int g (int x)
+{
+   return x*x;
+}
+
+int f (void)
+{
+   int x = 10;
+
+   fprintf(2, "Hello world! %d\n", g(x));
+   return 0;
+}
+
 int
 main(int argc, char *argv[])
 {
   int m, n, x;
 
   if (argc != 3) {
-     fprintf(2, "syntax: forksleep m n\nAborting...\n");
+     fprintf(2, "syntax: testForkfSleep m n\nAborting...\n");
      exit(0);
   }
 
@@ -22,7 +35,7 @@ main(int argc, char *argv[])
      exit(0);
   }
 
-  x = fork();
+  x = forkf(f);
   if (x < 0) {
      fprintf(2, "Error: cannot fork\nAborting...\n");
      exit(0);

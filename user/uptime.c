@@ -1,8 +1,10 @@
 #include "kernel/types.h"
-#include "kernel/stat.h"
 #include "user/user.h"
 
-int main(int argc,int *argv[]){
-    printf("%d\n",uptime());
-    exit(0);
+int
+main(int argc, char *argv[])
+{
+  fprintf(1, "%l ticks\n", uptime());
+
+  exit(0);
 }

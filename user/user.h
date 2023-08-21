@@ -1,5 +1,6 @@
 struct stat;
 struct rtcdate;
+struct procstat;
 
 // system calls
 int fork(void);
@@ -23,6 +24,26 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+
+int getppid(void);
+int yield(void);
+uint64 getpa(void*);
+int forkf(void*);
+int waitpid(int, int*);
+int ps(void);
+int pinfo(int, struct procstat*);
+int forkp(int);
+int schedpolicy(int);
+
+int barrier_alloc(void);
+void barrier(int, int, int);
+void barrier_free(int);
+void buffer_cond_init(void);
+void cond_produce(int);
+int cond_consume(void);
+void buffer_sem_init(void);
+void sem_produce(int);
+int sem_consume(void);
 
 // ulib.c
 int stat(const char*, struct stat*);

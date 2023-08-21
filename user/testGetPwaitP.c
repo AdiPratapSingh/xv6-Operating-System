@@ -7,7 +7,7 @@ main(int argc, char *argv[])
   int m, n, x;
 
   if (argc != 3) {
-     fprintf(2, "syntax: forksleep m n\nAborting...\n");
+     fprintf(2, "syntax: testGetPwaitP m n\nAborting...\n");
      exit(0);
   }
 
@@ -30,11 +30,11 @@ main(int argc, char *argv[])
   else if (x > 0) {
      if (n) sleep(m);
      fprintf(1, "%d: Parent.\n", getpid());
-     wait(0);
+     fprintf(1, "Return value of waitpid=%d\n", waitpid(x, 0));
   }
   else {
      if (!n) sleep(m);
-     fprintf(1, "%d: Child.\n", getpid());
+     fprintf(1, "%d: Child with parent %d.\n", getpid(), getppid());
   }
 
   exit(0);
